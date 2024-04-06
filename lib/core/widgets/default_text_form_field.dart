@@ -64,7 +64,7 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
       ),
       validator: widget.validator,
       controller: widget.controller,
-      obscureText: isObscure,
+      obscureText: widget.isPassword ? isObscure : false,
       keyboardType: widget.keyboardType,
       maxLength: widget.maxLength,
     );
