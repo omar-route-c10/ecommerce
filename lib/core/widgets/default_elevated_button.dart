@@ -26,7 +26,7 @@ class DefaultElevatedButton extends StatelessWidget {
           child: Text(
             label,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: ColorsManager.primaryColor,
+                  color: Theme.of(context).primaryColor,
                   fontSize: 20.sp,
                 ),
           ),

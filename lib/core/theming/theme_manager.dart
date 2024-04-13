@@ -4,6 +4,12 @@ import 'package:flutter/material.dart';
 class ThemeManager {
   static ThemeData mainTheme = ThemeData(
     primaryColor: ColorsManager.primaryColor,
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: ColorsManager.primaryColor,
+      type: BottomNavigationBarType.fixed,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+    ),
     textTheme: const TextTheme(
       titleLarge: TextStyle(
         fontSize: 24,
