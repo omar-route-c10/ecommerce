@@ -1,8 +1,7 @@
 import 'package:ecommerce/core/di/service_locator.dart';
-import 'package:ecommerce/core/theming/colors_manager.dart';
 import 'package:ecommerce/core/utils/ui_utils.dart';
 import 'package:ecommerce/core/utils/validator.dart';
-import 'package:ecommerce/core/widgets/default_elevated_button.dart';
+import 'package:ecommerce/features/auth/presentation/widgets/auth_elevated_button.dart';
 import 'package:ecommerce/core/widgets/default_text_form_field.dart';
 import 'package:ecommerce/features/auth/data/models/login_request.dart';
 import 'package:ecommerce/features/auth/presentation/cubit/auth_cubit.dart';
@@ -30,6 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final titleMediumStyle = Theme.of(context).textTheme.titleMedium;
     return Scaffold(
       body: Container(
         color: Theme.of(context).primaryColor,
@@ -55,17 +55,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Text(
                       'Welcome Back To Route',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleLarge
-                          ?.copyWith(fontSize: 24.sp),
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontSize: 24.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
                     ),
                     Text(
                       'Please sign in with your email',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium!
-                          .copyWith(fontSize: 16.sp),
+                      style: titleMediumStyle?.copyWith(fontSize: 16.sp),
                     ),
                     SizedBox(height: 40.h),
                     Form(
@@ -75,10 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           Text(
                             'Email',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(fontSize: 18.sp),
+                            style: titleMediumStyle,
                           ),
                           SizedBox(height: 24.h),
                           DefaultTextFormField(
@@ -94,10 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           SizedBox(height: 20.h),
                           Text(
                             'Password',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(fontSize: 18.sp),
+                            style: titleMediumStyle,
                           ),
                           SizedBox(height: 24.h),
                           DefaultTextFormField(
@@ -121,10 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           onPressed: () {},
                           child: Text(
                             'Forgot Password',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(color: ColorsManager.white),
+                            style: titleMediumStyle,
                           ),
                         ),
                       ],
@@ -143,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           UIUtils.showMessage(state.message);
                         }
                       },
-                      child: DefaultElevatedButton(
+                      child: AuthElevatedButton(
                         onPressed: _login,
                         label: 'Login',
                       ),

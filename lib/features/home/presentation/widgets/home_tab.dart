@@ -18,7 +18,7 @@ class HomeTab extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 18.h),
+              SizedBox(height: 16.h),
               Image.asset(
                 'assets/images/logo.png',
                 color: Theme.of(context).primaryColor,

@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce/core/theming/colors_manager.dart';
+import 'package:ecommerce/features/cart/presentation/screens/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:readmore/readmore.dart';
@@ -24,12 +26,19 @@ class ProductDetailsScreen extends StatelessWidget {
           IconButton(
             padding: EdgeInsets.zero,
             onPressed: () {},
-            icon: const Icon(Icons.search),
+            icon: Icon(
+              Icons.search,
+              size: 28.sp,
+            ),
           ),
           IconButton(
             padding: EdgeInsets.zero,
-            onPressed: () {},
-            icon: const Icon(Icons.shopping_cart_outlined),
+            onPressed: () =>
+                Navigator.of(context).pushNamed(CartScreen.routeName),
+            icon: Icon(
+              Icons.shopping_cart_outlined,
+              size: 28.sp,
+            ),
           ),
         ],
       ),
@@ -57,8 +66,9 @@ class ProductDetailsScreen extends StatelessWidget {
                       autoPlay: true,
                       viewportFraction: 0.97,
                     ),
-                    itemBuilder: (_, index, __) => Image.network(
-                      'https://ecommerce.routemisr.com/Route-Academy-products/1680399913757-cover.jpeg',
+                    itemBuilder: (_, index, __) => CachedNetworkImage(
+                      imageUrl:
+                          'https://ecommerce.routemisr.com/Route-Academy-products/1680399913757-cover.jpeg',
                       height: 300.h,
                       width: double.infinity,
                       fit: BoxFit.cover,
@@ -102,10 +112,7 @@ class ProductDetailsScreen extends StatelessWidget {
                           ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
-                            border: Border.all(
-                              color: ColorsManager.blueGrey,
-                              width: 1,
-                            ),
+                            border: Border.all(color: ColorsManager.blueGrey),
                           ),
                           child: Text(
                             '4132 Sold',
@@ -217,12 +224,6 @@ class ProductDetailsScreen extends StatelessWidget {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                      ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [

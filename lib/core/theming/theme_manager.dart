@@ -22,12 +22,18 @@ class ThemeManager {
       showSelectedLabels: false,
       showUnselectedLabels: false,
     ),
-    textTheme: const TextTheme(
-      titleLarge: TextStyle(
-        fontSize: 24,
-        fontWeight: FontWeight.w600,
-        color: ColorsManager.white,
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: ColorsManager.primary,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(15),
+          ),
+        ),
+        fixedSize: const Size.fromHeight(48),
       ),
+    ),
+    textTheme: const TextTheme(
       titleMedium: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.w400,

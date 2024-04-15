@@ -16,7 +16,7 @@ class ProductsTab extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 8.h),
+            SizedBox(height: 16.h),
             Image.asset(
               'assets/images/logo.png',
               color: Theme.of(context).primaryColor,

@@ -1,7 +1,7 @@
 import 'package:ecommerce/core/di/service_locator.dart';
 import 'package:ecommerce/core/utils/ui_utils.dart';
 import 'package:ecommerce/core/utils/validator.dart';
-import 'package:ecommerce/core/widgets/default_elevated_button.dart';
+import 'package:ecommerce/features/auth/presentation/widgets/auth_elevated_button.dart';
 import 'package:ecommerce/core/widgets/default_text_form_field.dart';
 import 'package:ecommerce/features/auth/data/models/register_request.dart';
 import 'package:ecommerce/features/auth/presentation/cubit/auth_cubit.dart';
@@ -30,6 +30,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final titleMediumStyle = Theme.of(context).textTheme.titleMedium;
     return Scaffold(
       body: Container(
         color: Theme.of(context).primaryColor,
@@ -60,10 +61,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         children: [
                           Text(
                             'User Name',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(fontSize: 18.sp),
+                            style: titleMediumStyle,
                           ),
                           SizedBox(height: 24.h),
                           DefaultTextFormField(
@@ -82,10 +80,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           SizedBox(height: 20.h),
                           Text(
                             'Mobile number',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(fontSize: 18.sp),
+                            style: titleMediumStyle,
                           ),
                           SizedBox(height: 24.h),
                           DefaultTextFormField(
@@ -102,10 +97,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           SizedBox(height: 20.h),
                           Text(
                             'Email',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(fontSize: 18.sp),
+                            style: titleMediumStyle,
                           ),
                           SizedBox(height: 24.h),
                           DefaultTextFormField(
@@ -121,10 +113,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           SizedBox(height: 20.h),
                           Text(
                             'Password',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(fontSize: 18.sp),
+                            style: titleMediumStyle,
                           ),
                           SizedBox(height: 24.h),
                           DefaultTextFormField(
@@ -143,7 +132,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 35.h),
+                    SizedBox(height: 26.h),
                     BlocListener<AuthCubit, AuthState>(
                       bloc: _authCubit,
                       listener: (_, state) {
@@ -157,11 +146,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           UIUtils.showMessage(state.message);
                         }
                       },
-                      child: DefaultElevatedButton(
+                      child: AuthElevatedButton(
                         onPressed: _register,
                         label: 'Sign up',
                       ),
                     ),
+                    SizedBox(height: 20.h),
                   ],
                 ),
               ),
