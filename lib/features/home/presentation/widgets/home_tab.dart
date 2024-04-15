@@ -13,15 +13,12 @@ class HomeTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: 10.h,
-          horizontal: 17.w,
-        ),
+        padding: EdgeInsets.symmetric(horizontal: 17.w),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 8.h),
+              SizedBox(height: 18.h),
               Image.asset(
                 'assets/images/logo.png',
                 color: Theme.of(context).primaryColor,
@@ -40,8 +37,7 @@ class HomeTab extends StatelessWidget {
                   Text(
                     'Categories',
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: ColorsManager.darkPrimaryColor,
-                          fontSize: 18.sp,
+                          color: ColorsManager.darkPrimary,
                           fontWeight: FontWeight.w500,
                         ),
                   ),
@@ -50,7 +46,7 @@ class HomeTab extends StatelessWidget {
                     child: Text(
                       'View All',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            color: ColorsManager.darkPrimaryColor,
+                            color: ColorsManager.darkPrimary,
                             fontSize: 15.sp,
                             fontWeight: FontWeight.w400,
                           ),
@@ -67,8 +63,7 @@ class HomeTab extends StatelessWidget {
                   Text(
                     'Brands',
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: ColorsManager.darkPrimaryColor,
-                          fontSize: 18.sp,
+                          color: ColorsManager.darkPrimary,
                           fontWeight: FontWeight.w500,
                         ),
                   ),
@@ -77,7 +72,7 @@ class HomeTab extends StatelessWidget {
                     child: Text(
                       'View All',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            color: ColorsManager.darkPrimaryColor,
+                            color: ColorsManager.darkPrimary,
                             fontSize: 15.sp,
                             fontWeight: FontWeight.w400,
                           ),
@@ -87,6 +82,7 @@ class HomeTab extends StatelessWidget {
               ),
               SizedBox(height: 8.h),
               const BrandsSection(),
+              SizedBox(height: 12.h),
             ],
           ),
         ),

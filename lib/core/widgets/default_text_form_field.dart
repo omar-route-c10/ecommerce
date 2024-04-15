@@ -32,7 +32,7 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
   Widget build(BuildContext context) {
     return TextFormField(
       decoration: InputDecoration(
-        fillColor: ColorsManager.whiteColor,
+        fillColor: ColorsManager.white,
         filled: true,
         suffixIcon: widget.isPassword
             ? IconButton(
@@ -43,24 +43,24 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
               )
             : null,
         enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: ColorsManager.blueGreyColor),
+          borderSide: const BorderSide(color: ColorsManager.blueGrey),
           borderRadius: BorderRadius.circular(15.r),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: ColorsManager.blueGreyColor),
+          borderSide: const BorderSide(color: ColorsManager.blueGrey),
           borderRadius: BorderRadius.circular(15.r),
         ),
         errorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: ColorsManager.blueGreyColor),
+          borderSide: const BorderSide(color: ColorsManager.blueGrey),
           borderRadius: BorderRadius.circular(15.r),
         ),
         hintText: widget.hintText,
         hintStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
-              color: ColorsManager.greyColor,
+              color: ColorsManager.blueGrey,
             ),
       ),
       style: const TextStyle(
-        color: ColorsManager.blackColor,
+        color: ColorsManager.black,
       ),
       validator: widget.validator,
       controller: widget.controller,

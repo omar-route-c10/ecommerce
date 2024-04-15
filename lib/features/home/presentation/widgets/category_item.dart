@@ -25,7 +25,7 @@ class CategoryItem extends StatelessWidget {
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 fontSize: 14.sp,
-                color: ColorsManager.darkPrimaryColor,
+                color: ColorsManager.darkPrimary,
                 fontWeight: FontWeight.normal,
               ),
           overflow: TextOverflow.ellipsis,

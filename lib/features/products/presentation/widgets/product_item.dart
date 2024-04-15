@@ -8,14 +8,19 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final smallDarkTitleMediumStyle =
+        Theme.of(context).textTheme.titleMedium?.copyWith(
+              color: ColorsManager.darkPrimary,
+              fontSize: 14.sp,
+            );
     return Container(
       height: 237.h,
       width: 191.w,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         border: Border.all(
-          color: Theme.of(context).primaryColor,
-          width: 1,
+          color: ColorsManager.blueGrey,
+          width: 2,
         ),
       ),
       child: Column(
@@ -28,9 +33,9 @@ class ProductItem extends StatelessWidget {
                 child: CachedNetworkImage(
                   imageUrl:
                       'https://ecommerce.routemisr.com/Route-Academy-products/1680399913757-cover.jpeg',
-                  fit: BoxFit.cover,
-                  width: 191.w,
                   height: 128.h,
+                  width: 191.w,
+                  fit: BoxFit.cover,
                 ),
               ),
               Positioned(
@@ -58,11 +63,7 @@ class ProductItem extends StatelessWidget {
               'Softride Enzo NXT CASTLEROCK-High Risk R',
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                    fontSize: 14.sp,
-                    color: ColorsManager.darkPrimaryColor,
-                    fontWeight: FontWeight.w500,
-                  ),
+              style: smallDarkTitleMediumStyle,
             ),
           ),
           SizedBox(height: 7.h),
@@ -73,11 +74,7 @@ class ProductItem extends StatelessWidget {
                 Text(
                   'EGP 2999',
                   maxLines: 1,
-                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                        fontSize: 14.sp,
-                        color: ColorsManager.darkPrimaryColor,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  style: smallDarkTitleMediumStyle,
                 ),
                 SizedBox(width: 10.w),
               ],
@@ -85,17 +82,13 @@ class ProductItem extends StatelessWidget {
           ),
           SizedBox(height: 7.h),
           Padding(
-            padding: EdgeInsets.only(left: 8.w, right: 8.w),
+            padding: EdgeInsets.symmetric(horizontal: 8.w),
             child: Row(
               children: [
                 Text(
                   'Review (2.8)',
                   maxLines: 1,
-                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                        fontSize: 14.sp,
-                        color: ColorsManager.darkPrimaryColor,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  style: smallDarkTitleMediumStyle?.copyWith(fontSize: 12.sp),
                 ),
                 SizedBox(width: 7.w),
                 const ImageIcon(
@@ -103,7 +96,7 @@ class ProductItem extends StatelessWidget {
                     'assets/images/star_icon.png',
                   ),
                   size: 16,
-                  color: ColorsManager.yellowColor,
+                  color: ColorsManager.yellow,
                 ),
                 const Spacer(),
                 InkWell(

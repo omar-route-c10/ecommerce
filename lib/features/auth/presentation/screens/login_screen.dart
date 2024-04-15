@@ -124,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
-                                .copyWith(color: ColorsManager.whiteColor),
+                                .copyWith(color: ColorsManager.white),
                           ),
                         ),
                       ],

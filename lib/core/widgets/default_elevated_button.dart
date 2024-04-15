@@ -16,9 +16,13 @@ class DefaultElevatedButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-          backgroundColor: ColorsManager.whiteColor,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(15.r)))),
+        backgroundColor: ColorsManager.white,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(15),
+          ),
+        ),
+      ),
       child: SizedBox(
         height: 64.h,
         width: 398.w,

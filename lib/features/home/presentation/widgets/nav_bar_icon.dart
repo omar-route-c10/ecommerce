@@ -14,15 +14,14 @@ class NavBarIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: isSelected ? ColorsManager.whiteColor : Colors.transparent,
+        color: isSelected ? ColorsManager.white : Colors.transparent,
         shape: BoxShape.circle,
       ),
       padding: const EdgeInsets.all(4),
       child: ImageIcon(
         AssetImage(imagePath),
-        color: isSelected
-            ? Theme.of(context).primaryColor
-            : ColorsManager.whiteColor,
+        color:
+            isSelected ? Theme.of(context).primaryColor : ColorsManager.white,
       ),
     );
   }
