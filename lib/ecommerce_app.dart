@@ -26,7 +26,7 @@ class ECommerceApp extends StatelessWidget {
           ProductDetailsScreen.routeName: (_) => const ProductDetailsScreen(),
           CartScreen.routeName: (_) => const CartScreen(),
         },
-        initialRoute: HomeScreen.routeName,
+        initialRoute: LoginScreen.routeName,
       ),
     );
   }

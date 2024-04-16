@@ -1,10 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce/core/theming/colors_manager.dart';
+import 'package:ecommerce/features/cart/domain/entities/cart_item_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CartItem extends StatelessWidget {
-  const CartItem();
+  const CartItem(this.cartItemData);
+
+  final CartItemData cartItemData;
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +37,7 @@ class CartItem extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),
                 child: CachedNetworkImage(
-                  imageUrl:
-                      'https://ecommerce.routemisr.com/Route-Academy-products/1680399913757-cover.jpeg',
+                  imageUrl: cartItemData.product.coverImageURL,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -53,7 +55,7 @@ class CartItem extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              'Softride Enzo NXT CASTLEROCK-High Risk R',
+                              cartItemData.product.title,
                               style: titleMediumStyle?.copyWith(
                                 color: Theme.of(context).primaryColor,
                               ),
@@ -80,7 +82,7 @@ class CartItem extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'EGP 2999',
+                              'EGP ${cartItemData.price}',
                               style: titleMediumStyle?.copyWith(
                                 color: Theme.of(context).primaryColor,
                               ),
@@ -103,7 +105,7 @@ class CartItem extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    '1',
+                                    '${cartItemData.count}',
                                     style: titleMediumStyle,
                                   ),
                                   IconButton(
