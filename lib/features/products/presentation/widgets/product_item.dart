@@ -1,10 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce/core/theming/colors_manager.dart';
+import 'package:ecommerce/features/products/domain/entities/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductItem extends StatelessWidget {
-  const ProductItem();
+  const ProductItem(this.product);
+
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +34,7 @@ class ProductItem extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(15),
                 child: CachedNetworkImage(
-                  imageUrl:
-                      'https://ecommerce.routemisr.com/Route-Academy-products/1680399913757-cover.jpeg',
+                  imageUrl: product.coverImageUrl,
                   height: 128.h,
                   width: 191.w,
                   fit: BoxFit.cover,
@@ -60,7 +62,7 @@ class ProductItem extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(left: 8.w),
             child: Text(
-              'Softride Enzo NXT CASTLEROCK-High Risk R',
+              product.title,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: smallDarkTitleMediumStyle,
@@ -72,7 +74,7 @@ class ProductItem extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  'EGP 2999',
+                  'EGP ${product.price}',
                   maxLines: 1,
                   style: smallDarkTitleMediumStyle,
                 ),
@@ -86,7 +88,7 @@ class ProductItem extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  'Review (2.8)',
+                  'Review (${product.ratingsAverage})',
                   maxLines: 1,
                   style: smallDarkTitleMediumStyle?.copyWith(fontSize: 12.sp),
                 ),

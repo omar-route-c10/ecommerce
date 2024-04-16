@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce/core/theming/colors_manager.dart';
+import 'package:ecommerce/features/products/domain/entities/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:readmore/readmore.dart';
@@ -17,9 +18,10 @@ class ProductDetailsScreen extends StatelessWidget {
       fontWeight: FontWeight.w400,
       color: ColorsManager.darkPrimary,
     );
+    final product = ModalRoute.of(context)!.settings.arguments as Product;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Product details'),
+        title: const Text('Product Details'),
         actions: [
           IconButton(
             padding: EdgeInsets.zero,
@@ -58,12 +60,12 @@ class ProductDetailsScreen extends StatelessWidget {
                       viewportFraction: 0.97,
                     ),
                     itemBuilder: (_, index, __) => Image.network(
-                      'https://ecommerce.routemisr.com/Route-Academy-products/1680399913757-cover.jpeg',
+                      product.imagesURLs[index],
                       height: 300.h,
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
-                    itemCount: 3,
+                    itemCount: product.imagesURLs.length,
                   ),
                 ),
               ),
@@ -73,7 +75,7 @@ class ProductDetailsScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      'Softride Enzo NXT CASTLEROCK-High Risk R',
+                      product.title,
                       style: titleMediumStyle?.copyWith(
                         color: ColorsManager.darkPrimary,
                         fontWeight: FontWeight.w500,
@@ -81,7 +83,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'EGP 2999',
+                    'EGP ${product.price}',
                     style: titleMediumStyle?.copyWith(
                       color: ColorsManager.darkPrimary,
                       fontWeight: FontWeight.bold,
@@ -108,7 +110,7 @@ class ProductDetailsScreen extends StatelessWidget {
                             ),
                           ),
                           child: Text(
-                            '4132 Sold',
+                            '${product.sold} Sold',
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium
@@ -126,7 +128,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         ),
                         SizedBox(width: 4.w),
                         Text(
-                          '2.8 (3200)',
+                          '${product.ratingsAverage} (${product.ratingsQuantity})',
                           style: titleMediumStyle?.copyWith(
                             fontSize: 14.sp,
                             color: ColorsManager.darkPrimary,
@@ -180,7 +182,7 @@ class ProductDetailsScreen extends StatelessWidget {
               ),
               SizedBox(height: 10.h),
               ReadMoreText(
-                'Sole Material\tRubber\nColour Name\tRED\nDepartment\tMen',
+                product.description,
                 trimLines: 3,
                 trimMode: TrimMode.Line,
                 style: readMoreTextStyle.copyWith(
@@ -205,7 +207,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 5.h),
                       Text(
-                        'EGP 2999',
+                        'EGP ${product.price}',
                         style: titleMediumStyle?.copyWith(
                           color: ColorsManager.darkPrimary,
                           fontWeight: FontWeight.w500,
