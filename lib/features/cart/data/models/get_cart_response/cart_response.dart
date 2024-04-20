@@ -1,18 +1,18 @@
 import 'cart_model.dart';
 
-class GetCartResponse {
+class CartResponse {
   final String? status;
   final int? numOfCartItems;
   final CartModel data;
 
-  const GetCartResponse({
+  const CartResponse({
     this.status,
     this.numOfCartItems,
     required this.data,
   });
 
-  factory GetCartResponse.fromJson(Map<String, dynamic> json) {
-    return GetCartResponse(
+  factory CartResponse.fromJson(Map<String, dynamic> json) {
+    return CartResponse(
       status: json['status'] as String?,
       numOfCartItems: json['numOfCartItems'] as int?,
       data: CartModel.fromJson(json['data'] as Map<String, dynamic>),

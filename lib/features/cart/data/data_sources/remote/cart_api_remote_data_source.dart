@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:ecommerce/core/constants.dart';
 import 'package:ecommerce/core/error/exception.dart';
 import 'package:ecommerce/features/cart/data/data_sources/remote/cart_remote_data_source.dart';
-import 'package:ecommerce/features/cart/data/models/get_cart_response/get_cart_response.dart';
+import 'package:ecommerce/features/cart/data/models/get_cart_response/cart_response.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: CartRemoteDataSource)
@@ -14,13 +14,24 @@ class CartAPIRemoteDataSource implements CartRemoteDataSource {
   const CartAPIRemoteDataSource(this._dio);
 
   @override
-  Future addToCart(String productId) async {}
+  Future<void> addToCart(String productId) async {
+    try {
+      await _dio.post(
+        APIConstants.cartEndpoint,
+        data: {
+          'productId': productId,
+        },
+      );
+    } catch (_) {
+      throw const RemoteException('Failed to add product to cart');
+    }
+  }
 
   @override
-  Future<GetCartResponse> getCart() async {
+  Future<CartResponse> getCart() async {
     try {
       final response = await _dio.get(APIConstants.cartEndpoint);
-      return GetCartResponse.fromJson(response.data);
+      return CartResponse.fromJson(response.data);
     } catch (exception) {
       if (exception is DioException &&
           exception.response?.statusCode == HttpStatus.notFound) {
@@ -31,8 +42,29 @@ class CartAPIRemoteDataSource implements CartRemoteDataSource {
   }
 
   @override
-  Future updateCart(String productId, int quantity) async {}
+  Future<CartResponse> updateCart(String productId, int count) async {
+    try {
+      final response = await _dio.put(
+        '${APIConstants.cartEndpoint}/$productId',
+        data: {
+          'count': count,
+        },
+      );
+      return CartResponse.fromJson(response.data);
+    } catch (_) {
+      throw const RemoteException('Failed to update product quantity');
+    }
+  }
 
   @override
-  Future deleteFromCart(String productId) async {}
+  Future<CartResponse> deleteFromCart(String productId) async {
+    try {
+      final response = await _dio.delete(
+        '${APIConstants.cartEndpoint}/$productId',
+      );
+      return CartResponse.fromJson(response.data);
+    } catch (_) {
+      throw const RemoteException('Failed to delete product from cart');
+    }
+  }
 }

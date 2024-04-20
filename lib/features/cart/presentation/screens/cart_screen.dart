@@ -1,5 +1,6 @@
 import 'package:ecommerce/core/di/service_locator.dart';
 import 'package:ecommerce/core/theming/colors_manager.dart';
+import 'package:ecommerce/core/utils/ui_utils.dart';
 import 'package:ecommerce/core/widgets/error_indicator.dart';
 import 'package:ecommerce/core/widgets/loading_indicator.dart';
 import 'package:ecommerce/features/cart/presentation/cubit/cart_cubit.dart';
@@ -9,10 +10,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   const CartScreen();
 
   static const String routeName = '/cart';
+
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  final _cartCubit = serviceLocator.get<CartCubit>();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +29,7 @@ class CartScreen extends StatelessWidget {
         .titleMedium
         ?.copyWith(fontWeight: FontWeight.w500);
     return BlocProvider(
-      create: (_) => serviceLocator.get<CartCubit>()..getCart(),
+      create: (_) => _cartCubit..getCart(),
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Cart'),
@@ -36,23 +44,39 @@ class CartScreen extends StatelessWidget {
             ),
           ],
         ),
-        body: BlocBuilder<CartCubit, CartState>(
+        body: BlocConsumer<CartCubit, CartState>(
+          listener: (_, state) {
+            if (state is UpdateCartLoading || state is DeleteFromCartLoading) {
+              UIUtils.showLoading(context);
+            } else if (state is UpdateCartSuccess ||
+                state is DeleteFromCartSuccess) {
+              UIUtils.hideLoading(context);
+            } else if (state is UpdateCartError) {
+              UIUtils.hideLoading(context);
+              UIUtils.showMessage(state.message);
+            } else if (state is DeleteFromCartError) {
+              UIUtils.hideLoading(context);
+              UIUtils.showMessage(state.message);
+            }
+          },
           builder: (context, state) {
             if (state is GetCartLoading) {
               return const LoadingIndicator();
             } else if (state is GetCartError) {
               return ErrorIndicator(state.message);
-            } else if (state is GetCartSuccess) {
+            } else {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(height: 8.h),
                   Expanded(
                     child: ListView.separated(
-                      itemBuilder: (_, index) =>
-                          CartItem(state.cart.products[index]),
+                      itemBuilder: (_, index) => CartItem(
+                        cartItemData: _cartCubit.cart.products[index],
+                        cartCubit: _cartCubit,
+                      ),
                       separatorBuilder: (_, index) => SizedBox(height: 12.h),
-                      itemCount: state.cart.products.length,
+                      itemCount: _cartCubit.cart.products.length,
                     ),
                   ),
                   Padding(
@@ -75,7 +99,7 @@ class CartScreen extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              'EGP ${state.cart.totalPrice}',
+                              'EGP ${_cartCubit.cart.totalPrice}',
                               style: titleMediumStyle?.copyWith(
                                 color: Theme.of(context).primaryColor,
                               ),
@@ -118,8 +142,6 @@ class CartScreen extends StatelessWidget {
                   ),
                 ],
               );
-            } else {
-              return const SizedBox();
             }
           },
         ),

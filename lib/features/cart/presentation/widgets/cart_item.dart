@@ -1,13 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce/core/theming/colors_manager.dart';
 import 'package:ecommerce/features/cart/domain/entities/cart_item_data.dart';
+import 'package:ecommerce/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CartItem extends StatelessWidget {
-  const CartItem(this.cartItemData);
+  const CartItem({
+    required this.cartItemData,
+    required this.cartCubit,
+  });
 
   final CartItemData cartItemData;
+  final CartCubit cartCubit;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +70,8 @@ class CartItem extends StatelessWidget {
                           ),
                           SizedBox(width: 20.w),
                           InkWell(
-                            onTap: () {},
+                            onTap: () => cartCubit
+                                .deleteFromCart(cartItemData.product.id),
                             child: Icon(
                               Icons.delete_outline_rounded,
                               color: Theme.of(context).primaryColor,
@@ -97,7 +103,14 @@ class CartItem extends StatelessWidget {
                                 children: [
                                   IconButton(
                                     padding: EdgeInsets.zero,
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      if (cartItemData.count > 1) {
+                                        cartCubit.updateCart(
+                                          cartItemData.product.id,
+                                          cartItemData.count - 1,
+                                        );
+                                      }
+                                    },
                                     icon: Icon(
                                       Icons.remove_circle_outline_rounded,
                                       color: ColorsManager.white,
@@ -110,7 +123,10 @@ class CartItem extends StatelessWidget {
                                   ),
                                   IconButton(
                                     padding: EdgeInsets.zero,
-                                    onPressed: () {},
+                                    onPressed: () => cartCubit.updateCart(
+                                      cartItemData.product.id,
+                                      cartItemData.count + 1,
+                                    ),
                                     icon: Icon(
                                       Icons.add_circle_outline_rounded,
                                       color: ColorsManager.white,

@@ -13,7 +13,14 @@ class CartRepositoryImpl implements CartRepository {
   const CartRepositoryImpl(this._remoteDataSource);
 
   @override
-  Future addToCart(String productId) async {}
+  Future<Either<Failure, void>> addToCart(String productId) async {
+    try {
+      await _remoteDataSource.addToCart(productId);
+      return const Right(null);
+    } on RemoteException catch (exception) {
+      return Left(Failure(exception.message));
+    }
+  }
 
   @override
   Future<Either<Failure, Cart>> getCart() async {
@@ -26,14 +33,22 @@ class CartRepositoryImpl implements CartRepository {
   }
 
   @override
-  Future updateCart(String productId, int count) {
-    // TODO: implement updateCart
-    throw UnimplementedError();
+  Future<Either<Failure, Cart>> updateCart(String productId, int count) async {
+    try {
+      final cartResponse = await _remoteDataSource.updateCart(productId, count);
+      return Right(cartResponse.data);
+    } on RemoteException catch (exception) {
+      return Left(Failure(exception.message));
+    }
   }
 
   @override
-  Future deleteFromCart(String productId) {
-    // TODO: implement deleteFromCart
-    throw UnimplementedError();
+  Future<Either<Failure, Cart>> deleteFromCart(String productId) async {
+    try {
+      final cartResponse = await _remoteDataSource.deleteFromCart(productId);
+      return Right(cartResponse.data);
+    } on RemoteException catch (exception) {
+      return Left(Failure(exception.message));
+    }
   }
 }
