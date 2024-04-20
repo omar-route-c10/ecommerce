@@ -11,15 +11,15 @@
 import 'package:dio/dio.dart' as _i3;
 import 'package:ecommerce/core/di/register_module.dart' as _i27;
 import 'package:ecommerce/features/auth/data/data_sources/local/auth_local_data_source.dart'
-    as _i9;
+    as _i13;
 import 'package:ecommerce/features/auth/data/data_sources/local/auth_shared_pref_local_data_source.dart'
-    as _i10;
-import 'package:ecommerce/features/auth/data/data_sources/remote/auth_api_remote_data_source.dart'
-    as _i12;
-import 'package:ecommerce/features/auth/data/data_sources/remote/auth_remote_data_source.dart'
-    as _i11;
-import 'package:ecommerce/features/auth/data/repository/auth_repository_impl.dart'
     as _i14;
+import 'package:ecommerce/features/auth/data/data_sources/remote/auth_api_remote_data_source.dart'
+    as _i16;
+import 'package:ecommerce/features/auth/data/data_sources/remote/auth_remote_data_source.dart'
+    as _i15;
+import 'package:ecommerce/features/auth/data/repository/auth_repository_impl.dart'
+    as _i18;
 import 'package:ecommerce/features/auth/domain/repository/auth_repository.dart'
     as _i13;
 import 'package:ecommerce/features/auth/domain/use_cases/login.dart' as _i23;
@@ -53,7 +53,7 @@ import 'package:ecommerce/features/home/presentation/cubit/home_cubit.dart'
     as _i22;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
-import 'package:shared_preferences/shared_preferences.dart' as _i8;
+import 'package:shared_preferences/shared_preferences.dart' as _i12;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -72,17 +72,21 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i5.HomeAPIRemoteDataSource(gh<_i3.Dio>()));
     gh.lazySingleton<_i6.HomeRepository>(
         () => _i7.HomeRepositoryImpl(gh<_i4.HomeRemoteDataSource>()));
-    await gh.factoryAsync<_i8.SharedPreferences>(
+    gh.lazySingleton<_i8.ProductsRemoteDataSource>(
+        () => _i9.ProductsAPIRemoteDataSource(gh<_i3.Dio>()));
+    gh.lazySingleton<_i10.ProductsRepository>(
+        () => _i11.ProductsRepositoryImpl(gh<_i8.ProductsRemoteDataSource>()));
+    await gh.factoryAsync<_i12.SharedPreferences>(
       () => registerModule.sharedPref,
       preResolve: true,
     );
-    gh.singleton<_i9.AuthLocalDataSource>(
-        () => _i10.AuthSharedPrefLocalDataSource(gh<_i8.SharedPreferences>()));
-    gh.singleton<_i11.AuthRemoteDataSource>(
-        () => _i12.AuthAPIRemoteDataSource(gh<_i3.Dio>()));
-    gh.singleton<_i13.AuthRepository>(() => _i14.AuthRepositoryImpl(
-          gh<_i11.AuthRemoteDataSource>(),
-          gh<_i9.AuthLocalDataSource>(),
+    gh.singleton<_i13.AuthLocalDataSource>(
+        () => _i14.AuthSharedPrefLocalDataSource(gh<_i12.SharedPreferences>()));
+    gh.singleton<_i15.AuthRemoteDataSource>(
+        () => _i16.AuthAPIRemoteDataSource(gh<_i3.Dio>()));
+    gh.singleton<_i17.AuthRepository>(() => _i18.AuthRepositoryImpl(
+          gh<_i15.AuthRemoteDataSource>(),
+          gh<_i13.AuthLocalDataSource>(),
         ));
     gh.lazySingleton<_i15.CartRemoteDataSource>(
         () => _i16.CartAPIRemoteDataSource(gh<_i3.Dio>()));
@@ -108,5 +112,7 @@ extension GetItInjectableX on _i1.GetIt {
     return this;
   }
 }
+
+class _$RegisterModule extends _i27.RegisterModule {}
 
 class _$RegisterModule extends _i27.RegisterModule {}

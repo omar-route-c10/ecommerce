@@ -6,6 +6,7 @@ class APIConstants {
   static const String categoriesEndpoint = 'categories';
   static const String brandsEndpoint = 'brands';
   static const String cartEndpoint = 'cart';
+  static const String productsEndpoint = 'products';
 }
 
 class CacheConstants {
